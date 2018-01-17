@@ -1,0 +1,6 @@
+C:\OnlineWebstore\OnlineWebstore.BusinessLayer.BusinessEntities\bin\Debug\OnlineWebstore.BusinessLayer.BusinessEntities.dll
+C:\OnlineWebstore\OnlineWebstore.BusinessLayer.BusinessEntities\bin\Debug\OnlineWebstore.BusinessLayer.BusinessEntities.pdb
+C:\OnlineWebstore\OnlineWebstore.BusinessLayer.BusinessEntities\obj\Debug\OnlineWebstore.BusinessLayer.BusinessEntities.csprojResolveAssemblyReference.cache
+C:\OnlineWebstore\OnlineWebstore.BusinessLayer.BusinessEntities\obj\Debug\OnlineWebstore.BusinessLayer.BusinessEntities.csproj.CoreCompileInputs.cache
+C:\OnlineWebstore\OnlineWebstore.BusinessLayer.BusinessEntities\obj\Debug\OnlineWebstore.BusinessLayer.BusinessEntities.dll
+C:\OnlineWebstore\OnlineWebstore.BusinessLayer.BusinessEntities\obj\Debug\OnlineWebstore.BusinessLayer.BusinessEntities.pdb

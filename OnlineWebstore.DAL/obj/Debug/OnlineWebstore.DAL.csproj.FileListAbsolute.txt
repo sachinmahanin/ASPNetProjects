@@ -1,0 +1,11 @@
+C:\OnlineWebstore\OnlineWebstore.DAL\bin\Debug\OnlineWebstore.DAL.dll.config
+C:\OnlineWebstore\OnlineWebstore.DAL\bin\Debug\OnlineWebstore.DAL.dll
+C:\OnlineWebstore\OnlineWebstore.DAL\bin\Debug\OnlineWebstore.DAL.pdb
+C:\OnlineWebstore\OnlineWebstore.DAL\bin\Debug\EntityFramework.dll
+C:\OnlineWebstore\OnlineWebstore.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\OnlineWebstore\OnlineWebstore.DAL\bin\Debug\EntityFramework.xml
+C:\OnlineWebstore\OnlineWebstore.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\OnlineWebstore\OnlineWebstore.DAL\obj\Debug\OnlineWebstore.DAL.csprojResolveAssemblyReference.cache
+C:\OnlineWebstore\OnlineWebstore.DAL\obj\Debug\OnlineWebstore.DAL.csproj.CoreCompileInputs.cache
+C:\OnlineWebstore\OnlineWebstore.DAL\obj\Debug\OnlineWebstore.DAL.dll
+C:\OnlineWebstore\OnlineWebstore.DAL\obj\Debug\OnlineWebstore.DAL.pdb

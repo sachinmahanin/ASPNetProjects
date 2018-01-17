@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fd4a729f64cd4137bb95bd9c2110fc9f" Name="Diagram1">
+        <EntityTypeShape EntityType="OnlineWebstore.DAL.OnlineShoppingStoreModel.OrderItem" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineWebstore.DAL.OnlineShoppingStoreModel.Order" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineWebstore.DAL.OnlineShoppingStoreModel.PaymentMode" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineWebstore.DAL.OnlineShoppingStoreModel.ProductCategory" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineWebstore.DAL.OnlineShoppingStoreModel.Product" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="OnlineWebstore.DAL.OnlineShoppingStoreModel.FK_OrderItems_OrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineWebstore.DAL.OnlineShoppingStoreModel.FK_OrderItems_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineWebstore.DAL.OnlineShoppingStoreModel.FK_PaymentMode_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineWebstore.DAL.OnlineShoppingStoreModel.FK_ProductCategory_ProductCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineWebstore.DAL.OnlineShoppingStoreModel.FK_Products_Products" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OnlineWebstore.DAL.OnlineShoppingStoreModel.sysdiagram" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="OnlineWebstore.DAL.OnlineShoppingStoreModel.User" Width="1.5" PointX="7.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
