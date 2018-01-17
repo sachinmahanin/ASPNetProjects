@@ -1,0 +1,99 @@
+﻿@model OnlineWebstore.ViewModel.ProductViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js">
+</script>
+@using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmCreate" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ProductViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control",@id= "ProductName" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control", @id = "ProductPrice" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class = "control-label col-md-2" > Select Product Category</label>
+
+    <div class="col-md-10">
+        @Html.DropDownListFor(m => m.ProductCategoryId, // 1. Store selected value in Model.State;
+                                                        // when page is rendered after postback,
+                                                        // take selected value from Model.State.
+
+                                     // 2. Take list of values from Model.States
+                                     Model.listProductCategoryItems,
+
+                                     // 3. Text for the first 'default' option
+                                     "- Please select a Category -",
+
+                                     //4. A class name to assign to <select> tag
+                                     new { @class = "form-control" , @id = "ProductCategory" })
+
+    </div>
+</div>
+        <label id="lblError"> </label>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#lblError").css("display", "none");
+        $("#frmCreate").submit(function (event) {
+            if ($("#ProductName").val() == "") {
+                // alert("There is no value for CategoryName.");
+                $("#lblError").text("There is no value for ProductName.");
+                $("#lblError").css("display", "block");
+                event.preventDefault();
+                return;
+            }
+            if ($("#ProductPrice").val() == "" || ! $.isNumeric($("#ProductPrice").val())) {
+                // alert("There is no value for CategoryName.");
+                $("#lblError").text("Invalid or no value in ProductPrice");
+                $("#lblError").css("display", "block");
+                event.preventDefault();
+                return;
+            }
+            if ($("#ProductCategory").val() == "") {
+                // alert("There is no value for CategoryName.");
+                $("#lblError").text("Please select ProductCategory");
+                $("#lblError").css("display", "block");
+                event.preventDefault();
+                return;
+            }
+        });
+        $("#lblError").css("display", "none");
+    });
+</script>  

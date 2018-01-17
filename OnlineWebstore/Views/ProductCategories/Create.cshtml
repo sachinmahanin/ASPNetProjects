@@ -1,0 +1,66 @@
+﻿@model OnlineWebstore.BusinessLayer.BusinessEntities.ProductCategory
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js">
+
+</script> 
+
+@using (Html.BeginForm("Create", "ProductCategories", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmCreate"  })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ProductCategory</h4>
+        <hr />
+     
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" ,@id= "CategoryName" } })
+                <label id="lblError" > </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create Product Category" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script type="text/javascript">
+
+    //function validateForm() {
+
+    //    if ($("#CategoryName").val() == "") {
+    //        alert("There is no value for CategoryName");
+    //        return false;
+    //    }
+    //    return true;
+    //}
+    $(document).ready(function () {
+        $("#lblError").css("display", "none"); 
+        $("#frmCreate").submit(function (event) {   
+            if ($("#CategoryName").val() == "") {
+               // alert("There is no value for CategoryName.");
+                $("#lblError").text ("There is no value for CategoryName."); 
+                $("#lblError").css("display", "block"); 
+                event.preventDefault();
+                return;
+            }
+        });
+        $("#lblError").css("display", "none"); 
+    });
+</script>  
