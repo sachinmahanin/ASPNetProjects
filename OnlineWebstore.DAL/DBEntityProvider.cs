@@ -138,7 +138,7 @@ namespace OnlineWebstore.DAL
                 return lstProductCategories;
             }
          }
-        public bool AddNewProductCategory(ProductCategory pc)
+        public ProductCategory AddNewProductCategory(ProductCategory pc)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace OnlineWebstore.DAL
                     db.ProductCategories.Add(pc);
                     db.Entry(pc).State = EntityState.Added;
                     db.SaveChanges();
-                    return true;
+                    return pc;
                 }
             }
             catch( Exception ex)
@@ -205,6 +205,7 @@ namespace OnlineWebstore.DAL
 
                         if (fetchedProductCategory != null)
                         {
+                        fetchedProductCategory.CategoryName = pc.CategoryName;
                             db.Entry(fetchedProductCategory).State = EntityState.Modified;
                             db.SaveChanges();
                             return true;
