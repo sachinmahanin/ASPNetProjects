@@ -10,7 +10,7 @@ namespace OnlineWebstore.BusinessLayer.ServiceInterface
     public interface IProductManagerService
     {
          List<ProductCategory> GetAllProductCategories();
-        void AddProductCategory(BusinessEntities.ProductCategory newProductCategory);
+        BusinessEntities.ProductCategory AddProductCategory(BusinessEntities.ProductCategory newProductCategory);
         void DeleteProductCategory(BusinessEntities.ProductCategory ProductCategory);
         bool IsProductCategoryAvaialable(int productCategoryID);
         ProductCategory GetProductCategory(int productCategoryID);

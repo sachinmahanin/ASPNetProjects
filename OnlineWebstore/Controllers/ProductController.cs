@@ -10,8 +10,12 @@ namespace OnlineWebstore.Controllers
 {
     public class ProductController : Controller
     {
+        public ProductController(IProductManagerService prdManager)
+        {
+            this.productManager = prdManager;
+        }
 
-        IProductManagerService productManager = new ProductManagerService();
+        IProductManagerService productManager;// = new ProductManagerService();
         // GET: Product
         public ActionResult Index()
         {

@@ -5,69 +5,127 @@ using System.Text;
 using System.Threading.Tasks;
 using OnlineWebstore.BusinessLayer.BusinessEntities;
 using OnlineWebstore.BusinessLayer.ServiceInterface;
+using OnlineWebstore.DAL;
 
 namespace OnlineWebstore.BusinessLayer.ServiceImplementation
 {
     public class ProductManagerService : IProductManagerService
     {
-        public Product AddProduct(Product newProduct)
+        DAL.DBEntityProvider db = new DBEntityProvider();
+        
+        BusinessEntities.Product IProductManagerService.AddProduct(BusinessEntities.Product newProduct)
         {
-            throw new NotImplementedException();
+            OnlineWebstore.DAL.Product dbProduct = new DAL.Product();
+            dbProduct.ProductName = newProduct.ProductName;
+            dbProduct.ProductPrice = newProduct.ProductPrice;
+            
+            dbProduct.ProductCategoryId = newProduct.ProductCategoryId;
+           
+             
+            dbProduct=db.AddNewProduct(dbProduct);
+            if (dbProduct == null)
+                return null;
+            newProduct.ProductID = dbProduct.ProductID;
+            return newProduct;
         }
 
-        public void AddProductCategory(ProductCategory newProductCategory)
+        BusinessEntities.ProductCategory IProductManagerService.AddProductCategory(BusinessEntities.ProductCategory newProductCategory)
         {
-            throw new NotImplementedException();
+            var dbProductCategory = new DAL.ProductCategory() { CategoryName= newProductCategory.CategoryName};
+            dbProductCategory= db.AddNewProductCategory(dbProductCategory);
+            var productCategory = new BusinessEntities.ProductCategory() { CategoryName = dbProductCategory.CategoryName, ProductCategoryId = dbProductCategory.ProductCategoryId };
+            return productCategory;
         }
 
-        public void DeleteProduct(Product Product)
+        void IProductManagerService.DeleteProduct(BusinessEntities.Product Product)
         {
-            throw new NotImplementedException();
+            var dbProduct = new DAL.Product() { ProductID=Product.ProductID,
+                                                ProductCategoryId=Product.ProductCategoryId,
+                                                ProductName=Product.ProductName,
+                                                ProductPrice =Product.ProductPrice
+                                                };
+           var isDeletionSucessful= db.DeleteProduct(dbProduct);
         }
 
-        public void DeleteProductCategory(ProductCategory ProductCategory)
+        void IProductManagerService.DeleteProductCategory(BusinessEntities.ProductCategory ProductCategory)
         {
-            throw new NotImplementedException();
+            DAL.ProductCategory dbProductCategory = new DAL.ProductCategory() {CategoryName=ProductCategory.CategoryName,ProductCategoryId=ProductCategory.ProductCategoryId };
+              db.DeleteProductCategory(dbProductCategory);
         }
 
-        public List<ProductCategory> GetAllProductCategories()
+        List<BusinessEntities.ProductCategory> IProductManagerService.GetAllProductCategories()
         {
-            throw new NotImplementedException();
+            var lstdbProductCategories = db.GetAllProductCategories();
+            var lstProductCategories= lstdbProductCategories.Select(p => new BusinessEntities.ProductCategory() { CategoryName = p.CategoryName, ProductCategoryId = p.ProductCategoryId }).ToList();
+            return lstProductCategories;
         }
 
-        public List<Product> GetAllProducts()
+        List<BusinessEntities.Product> IProductManagerService.GetAllProducts()
         {
-            throw new NotImplementedException();
+           var lstProducts= db.GetAllProducts();
+
+            // Convert DAL objects into Bussiness entities
+
+          var lstBussinessProducts=  lstProducts.Select(p => new BusinessEntities.Product()
+            {
+                ProductCategoryId = p.ProductCategoryId,
+                ProductID = p.ProductID
+                                ,
+                ProductName = p.ProductName,
+                ProductPrice = p.ProductPrice
+            }).ToList();
+
+            return lstBussinessProducts;
         }
 
-        public Product GetProduct(int productID)
+        BusinessEntities.Product IProductManagerService.GetProduct(int productID)
         {
-            throw new NotImplementedException();
+            var dbProduct = db.GetProduct(productID);
+
+            BusinessEntities.Product prd = new BusinessEntities.Product() { ProductCategoryId= dbProduct.ProductCategoryId,ProductID= dbProduct.ProductID,ProductName= dbProduct.ProductName,ProductPrice= dbProduct.ProductPrice};
+            return prd;
         }
 
-        public ProductCategory GetProductCategory(int productCategoryID)
+        BusinessEntities.ProductCategory IProductManagerService.GetProductCategory(int productCategoryID)
         {
-            throw new NotImplementedException();
+            var dbProductCategory =db.GetProductCategory(productCategoryID);
+            var productCategory = new BusinessEntities.ProductCategory() { ProductCategoryId=dbProductCategory.ProductCategoryId,CategoryName=dbProductCategory.CategoryName};
+            return productCategory;
+
         }
 
-        public bool IsProductAvaialable(int productID)
+        bool IProductManagerService.IsProductAvaialable(int productID)
         {
-            throw new NotImplementedException();
+           var dbProductList= db.GetAllProducts();
+           if(dbProductList!=null && dbProductList.Count > 0)
+            {
+              var dbProduct=  dbProductList.Find(p => p.ProductID == productID);
+                if (dbProduct != null)
+                    return true;
+            }
+            return false;
         }
 
-        public bool IsProductCategoryAvaialable(int productCategoryID)
+        bool IProductManagerService.IsProductCategoryAvaialable(int productCategoryID)
         {
-            throw new NotImplementedException();
+            var dbProductCategory=db.GetProductCategory(productCategoryID);
+            if (dbProductCategory == null)
+                return false;
+            return true;
         }
 
-        public bool ModifyProduct(Product pc)
+        bool IProductManagerService.ModifyProduct(BusinessEntities.Product pc)
         {
-            throw new NotImplementedException();
+            DAL.Product dbProduct = new DAL.Product() { ProductID = pc.ProductID, ProductName = pc.ProductName, ProductPrice = pc.ProductPrice,ProductCategoryId=pc.ProductCategoryId };
+            bool isSuccessful= db.ModifyProduct(dbProduct);
+            return isSuccessful;
         }
 
-        public bool ModifyProductCategory(ProductCategory pc)
+        bool IProductManagerService.ModifyProductCategory(BusinessEntities.ProductCategory pc)
         {
-            throw new NotImplementedException();
+            var dbProductCategory = new DAL.ProductCategory() {CategoryName=pc.CategoryName ,ProductCategoryId=pc.ProductCategoryId};
+            var isModificationSuccessful= db.ModifyProductCategory(dbProductCategory);
+            return isModificationSuccessful;
         }
     }
 }

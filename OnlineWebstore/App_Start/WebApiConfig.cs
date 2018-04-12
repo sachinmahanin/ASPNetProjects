@@ -1,4 +1,7 @@
 ﻿using CacheCow.Server;
+using Microsoft.Practices.Unity;
+using OnlineWebstore.BusinessLayer.ServiceImplementation;
+using OnlineWebstore.BusinessLayer.ServiceInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +23,9 @@ namespace OnlineWebstore
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            var container = new UnityContainer();
+            container.RegisterType<IProductManagerService, ProductManagerService>(new HierarchicalLifetimeManager());
+            config.DependencyResolver = new UnityResolver(container);
             //Configure HTTP Caching using Entity Tags (ETags)
             GlobalConfiguration.Configuration.MessageHandlers.Add(new  CachingHandler(GlobalConfiguration.Configuration));
         }
