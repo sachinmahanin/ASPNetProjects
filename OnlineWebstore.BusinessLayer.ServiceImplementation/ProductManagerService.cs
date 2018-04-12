@@ -22,13 +22,19 @@ namespace OnlineWebstore.BusinessLayer.ServiceImplementation
             dbProduct.ProductCategoryId = newProduct.ProductCategoryId;
            
              
-            db.AddNewProduct(dbProduct);
+            dbProduct=db.AddNewProduct(dbProduct);
+            if (dbProduct == null)
+                return null;
+            newProduct.ProductID = dbProduct.ProductID;
             return newProduct;
         }
 
-        void IProductManagerService.AddProductCategory(BusinessEntities.ProductCategory newProductCategory)
+        BusinessEntities.ProductCategory IProductManagerService.AddProductCategory(BusinessEntities.ProductCategory newProductCategory)
         {
-            throw new NotImplementedException();
+            var dbProductCategory = new DAL.ProductCategory() { CategoryName= newProductCategory.CategoryName};
+            dbProductCategory= db.AddNewProductCategory(dbProductCategory);
+            var productCategory = new BusinessEntities.ProductCategory() { CategoryName = dbProductCategory.CategoryName, ProductCategoryId = dbProductCategory.ProductCategoryId };
+            return productCategory;
         }
 
         void IProductManagerService.DeleteProduct(BusinessEntities.Product Product)
@@ -43,7 +49,8 @@ namespace OnlineWebstore.BusinessLayer.ServiceImplementation
 
         void IProductManagerService.DeleteProductCategory(BusinessEntities.ProductCategory ProductCategory)
         {
-            throw new NotImplementedException();
+            DAL.ProductCategory dbProductCategory = new DAL.ProductCategory() {CategoryName=ProductCategory.CategoryName,ProductCategoryId=ProductCategory.ProductCategoryId };
+              db.DeleteProductCategory(dbProductCategory);
         }
 
         List<BusinessEntities.ProductCategory> IProductManagerService.GetAllProductCategories()
@@ -101,7 +108,10 @@ namespace OnlineWebstore.BusinessLayer.ServiceImplementation
 
         bool IProductManagerService.IsProductCategoryAvaialable(int productCategoryID)
         {
-            throw new NotImplementedException();
+            var dbProductCategory=db.GetProductCategory(productCategoryID);
+            if (dbProductCategory == null)
+                return false;
+            return true;
         }
 
         bool IProductManagerService.ModifyProduct(BusinessEntities.Product pc)
@@ -113,7 +123,9 @@ namespace OnlineWebstore.BusinessLayer.ServiceImplementation
 
         bool IProductManagerService.ModifyProductCategory(BusinessEntities.ProductCategory pc)
         {
-            throw new NotImplementedException();
+            var dbProductCategory = new DAL.ProductCategory() {CategoryName=pc.CategoryName ,ProductCategoryId=pc.ProductCategoryId};
+            var isModificationSuccessful= db.ModifyProductCategory(dbProductCategory);
+            return isModificationSuccessful;
         }
     }
 }
