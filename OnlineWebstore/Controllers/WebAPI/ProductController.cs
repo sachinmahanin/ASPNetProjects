@@ -12,7 +12,12 @@ namespace OnlineWebstore.Controllers.WebAPI
 {
     public class ProductController : ApiController
     {
-        IProductManagerService productManager = new BusinessLayer.ServiceImplementation.ProductManagerService();
+
+        public ProductController(IProductManagerService prdManager)
+        {
+            this.productManager = prdManager;
+        }
+        IProductManagerService productManager;
         //GET: api/Product
        [ResponseType(typeof(IEnumerable<BusinessLayer.BusinessEntities.Product>))]
        [HttpGet]
@@ -28,18 +33,7 @@ namespace OnlineWebstore.Controllers.WebAPI
          public IHttpActionResult Get(int id)
         {
 
-            //int id = 0;
-            //if (string.IsNullOrEmpty(ProductId))
-            //    return BadRequest("Product Id can't be empty");
-            //try
-            //{
-            //    id = Convert.ToInt32(ProductId);
-            //}
-            //catch
-            //{
-            //    return BadRequest("Product Id can't be empty");
-
-            //}
+           
             try
             {
                 var product = productManager.GetProduct(id);
@@ -82,8 +76,22 @@ namespace OnlineWebstore.Controllers.WebAPI
         }
 
         // DELETE: api/Product/5
-        public void Delete(int id)
+        [ResponseType(typeof(BusinessLayer.BusinessEntities.Product))]
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
         {
+            try
+            {
+                var product = productManager.GetProduct(id);
+                if (product == null)
+                    return NotFound();
+                productManager.DeleteProduct(product);
+                return Ok(product);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }
